@@ -43,3 +43,56 @@ Dockerでドカドカするメモ
 * search：Docekrイメージの検索
 * login：Docker Hubへログイン
 * logout：Docker Hubからログアウト
+
+## 実行例(Rust)
+
+* pullしてくる
+```
+sudo docker image pull rust:latest
+```
+
+* pull出来たか確認
+```
+sudo docker image ls
+sudo docker image inspect rust:latest
+```
+
+* runする
+```
+sudo docker run --name rusttest -it rust:latest /bin/bash
+```
+nameはなんでも良い
+
+* IDの確認
+```
+sudo docker container ls -a
+```
+* 接続する
+```
+sudo docker container exec -it ID /bin/bash
+```
+
+* ローカルのディレクトリをマウントしながらrunする
+```
+sudo docker run -itv /home/path/to/src:/project rust:latest /bin/bas
+```
+ローカルの`/home/path/to/src/`をdocker側の`/project`としてマウントする
+
+* dockerでのコンパイル
+```
+cd project/
+rustc main.rs
+./main
+```
+普通にdocker側にはrustcとかが入ってるので普通にコンパイルして実行するだけ
+
+* stopする
+```
+sudo docker container stop ID
+```
+
+* removeする
+```
+sudo docker container rm ID
+```
+stopしてからじゃないとrm出来ない
